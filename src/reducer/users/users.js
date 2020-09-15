@@ -5,6 +5,7 @@ const initialState = {
   isUsersDataLoading: false,
   isUsersDataError: false,
   usersDataCount: null,
+  currentPage: 1,
 };
 
 const ActionType = {
@@ -12,6 +13,7 @@ const ActionType = {
   SET_USERS_DATA_LOADING: 'SET_USERS_DATA_LOADING',
   SET_USERS_DATA_ERROR: 'SET_USERS_DATA_ERROR',
   SET_USERS_DATA_COUNT: 'SET_USERS_DATA_COUNT',
+  SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
 };
 
 const ActionCreator = {
@@ -38,6 +40,12 @@ const ActionCreator = {
     return {
       type: ActionType.SET_USERS_DATA_COUNT,
       payload: count,
+    };
+  },
+  setCurrentPage: (payload) => {
+    return {
+      type: ActionType.SET_CURRENT_PAGE,
+      payload,
     };
   },
 };
@@ -81,6 +89,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         usersDataCount: action.payload,
+      };
+    case ActionType.SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
       }
     default:
       return state;

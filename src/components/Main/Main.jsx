@@ -7,8 +7,17 @@ import DescriptionArea from '../DescriptionArea/DescriptionArea.jsx';
 import FilterSearch from '../FilterSearch/FilterSearch.jsx';
 import PaginationMenu from '../PaginationMenu/PaginationMenu.jsx';
 import UserForm from '../UserForm/UserForm.jsx';
-import { getUsersDataLoading, getUsersDataError, getUsersData, getUsersDataCount } from '../../reducer/users/selectors';
+import { MAX_USERS_ITEMS } from '../../utils/utils';
+import {
+  getUsersDataLoading,
+  getUsersDataError,
+  getUsersData,
+  getUsersDataCount,
+  getPaginations,
+  getCurrentPage,
+} from '../../reducer/users/selectors';
 import WelcomeScreen from '../WelcomeScreen/WelcomeScreen.jsx';
+import { ActionCreator } from '../../reducer/users/users';
 
 
 class Main extends React.PureComponent {
@@ -21,6 +30,7 @@ class Main extends React.PureComponent {
 
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleActiveItem = this.handleActiveItem.bind(this);
+    this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
   }
 
   handleCloseModal() {
@@ -36,6 +46,13 @@ class Main extends React.PureComponent {
     })
   }
 
+  handleSetCurrentPage(pageNumber) {
+    this.props.setCurrentPage(pageNumber);
+    this.setState({
+      activeItem: null,
+    });
+  }
+
   renderDetailsBlock() {
     if (this.state.activeItem) {
       return (
@@ -47,7 +64,7 @@ class Main extends React.PureComponent {
   }
 
   renderCustomTable() {
-    const { userDataLoading, userDataError, usersData } = this.props;
+    const { userDataLoading, userDataError, usersDataByPage } = this.props;
 
     if (userDataLoading) {
       return <Spinner color='secondary'/>
@@ -57,7 +74,13 @@ class Main extends React.PureComponent {
       return <p style={{color: 'red'}}>При загрузке данных произошла ошибка</p>
     }
 
-    return <CustomTable setActiveItem={this.handleActiveItem} data={usersData} />
+    return <CustomTable setActiveItem={this.handleActiveItem} data={usersDataByPage} />
+  }
+
+  renderPagination() {
+    if (this.props.paginationArray.length > 1) {
+      return <PaginationMenu setCurrentPage={this.handleSetCurrentPage} paginations={this.props.paginationArray} />
+    }
   }
 
   render() {
@@ -79,7 +102,7 @@ class Main extends React.PureComponent {
       </Modal>
       <FilterSearch/>
       {this.renderCustomTable()}
-      <PaginationMenu />
+      {this.renderPagination()}
       {this.renderDetailsBlock()}
       </>
     );
@@ -91,13 +114,21 @@ const mapStateToProps = (state) => {
   const userDataError = getUsersDataError(state);
   const usersData = getUsersData(state);
   const usersDataCount = getUsersDataCount(state);
+  const paginationArray = getPaginations(state);
+  const currentPage = getCurrentPage(state);
+  const usersDataByPage = usersData.slice(MAX_USERS_ITEMS * (currentPage - 1), MAX_USERS_ITEMS * currentPage);
 
   return {
     userDataLoading,
     userDataError,
-    usersData,
+    usersDataByPage,
     usersDataCount,
+    paginationArray,
   };
 };
 
-export default connect(mapStateToProps, null)(Main);
+const mapDispatchToProps = {
+  setCurrentPage: ActionCreator.setCurrentPage,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
