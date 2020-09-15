@@ -2,7 +2,12 @@ import React from 'react';
 import { Table } from 'reactstrap';
 
 class CustomTable extends React.PureComponent {
+  constructor(props) {
+    super();
+  }
   render() {
+    const { data, setActiveItem } = this.props;
+
     return (
       <Table hover>
         <thead>
@@ -15,27 +20,20 @@ class CustomTable extends React.PureComponent {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Otto</td>
-            <td>Rihagel</td>
-            <td>Pipka@gmail.com</td>
-            <td>8-919-222-22-22</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Otto2</td>
-            <td>Rihagel</td>
-            <td>Pipka@gmail.com</td>
-            <td>8-919-222-22-22</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Otto3</td>
-            <td>Rihagel</td>
-            <td>Pipka@gmail.com</td>
-            <td>8-919-222-22-22</td>
-          </tr>
+          {data.map((item) => (
+            <tr
+              key={item.id}
+              onClick={() => {
+                setActiveItem(item);
+              }}
+            >
+              <th scope="row">{item.id}</th>
+              <td>{item.firstName}</td>
+              <td>{item.lastName}</td>
+              <td>{item.email}</td>
+              <td>{item.phone}</td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     );

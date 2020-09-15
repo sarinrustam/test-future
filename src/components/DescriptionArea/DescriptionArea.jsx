@@ -1,24 +1,25 @@
 import React from 'react';
 import { Card, Row, Col, CardTitle, CardText, FormGroup, Label, Input } from 'reactstrap';
 
-const DescriptionArea = () => {
+const DescriptionArea = (props) => {
+  const {firstName, lastName, description, address} = props.userData;
   return (
     <>
     <Row>
       <Col md={10}>
         <Card body>
-          <CardTitle><h5>Подробная информация:</h5> </CardTitle>
-          <CardText>Выбран пользователь <b>Matt Scott</b></CardText>
+          <CardTitle><h5>Подробная информация:</h5></CardTitle>
+          <CardText>Выбран пользователь <b>{firstName} {lastName}</b></CardText>
           <FormGroup row>
-            <Label for="desc" sm={2}>Описание:</Label>
-            <Col sm={10}>
-              <Input type="textarea" name="text" id="desc" />
+            <Label sm={2}>Описание:</Label>
+            <Col sm={7}>
+              <p>{description}</p>
             </Col>
           </FormGroup>
-          <CardText>Адрес проживания: <b>Каштановая улица 8-222</b></CardText>
-          <CardText>Город: <b>Москва</b></CardText>
-          <CardText>Провинция/штат: <b>Ли уань</b></CardText>
-          <CardText>Индекс: <b>452686</b></CardText>
+          <CardText>Адрес проживания: <b>{address.streetAddress}</b></CardText>
+          <CardText>Город: <b>{address.city}</b></CardText>
+          <CardText>Провинция/штат: <b>{address.state}</b></CardText>
+          <CardText>Индекс: <b>{address.zip}</b></CardText>
         </Card>
       </Col>
     </Row>

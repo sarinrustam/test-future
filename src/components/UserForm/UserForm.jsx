@@ -36,7 +36,7 @@ class UserForm extends React.Component {
             <FormGroup>
               <Label for='phone'>Phone</Label>
               <Input id='phone' type='tel' name='phone' placeholder='Введите email'/>
-            </FormGroup>
+            </FormGroup> 
           </Col>
         </Row>
         <Button color='secondary'>Добавить пользователя</Button>
