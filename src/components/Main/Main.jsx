@@ -79,7 +79,7 @@ class Main extends React.PureComponent {
 
   renderPagination() {
     if (this.props.paginationArray.length > 1) {
-      return <PaginationMenu setCurrentPage={this.handleSetCurrentPage} paginations={this.props.paginationArray} />
+      return <PaginationMenu currentPage={this.props.currentPage} setCurrentPage={this.handleSetCurrentPage} paginations={this.props.paginationArray} />
     }
   }
 
@@ -124,6 +124,7 @@ const mapStateToProps = (state) => {
     usersDataByPage,
     usersDataCount,
     paginationArray,
+    currentPage,
   };
 };
 

@@ -24,7 +24,6 @@ const ActionCreator = {
     };
   },
   setUsersDataLoading: (status) => {
-    console.log('ACTIONCFE', status)
     return {
       type: ActionType.SET_USERS_DATA_LOADING,
       payload: status,
