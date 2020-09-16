@@ -4,9 +4,9 @@
 
 Необходимо разработать React-приложение для отображения таблицы с данными. Дополнительным плюсом будет: Финальный билд приложения должен быть запускаться из Docker контейнера (хотябы с минимальной конфигурацией)
 
-## Полное описание задания - (https://github.com/fugr-ru/frontend-javascript-test)
+### Полное описание задания - (https://github.com/fugr-ru/frontend-javascript-test)
 
-###Дополнительная информация:
+### Дополнительная информация:
 1. Для UI использовал - [Reactstrap](https://reactstrap.github.io/)
 2. Для работы с формой - [Formik](https://formik.org/)
 3. Для запросов к серверу - [Axios](https://github.com/axios/axios)
