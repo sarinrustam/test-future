@@ -161,18 +161,12 @@ Main.propTypes = {
   userDataLoading: PropTypes.bool.isRequired,
   userDataError: PropTypes.bool.isRequired,
   usersDataCount: PropTypes.number,
-  usersDataByPage: PropTypes.arrayOf(
-    PropTypes.object.isRequired,
-  ).isRequired,
-  paginationArray: PropTypes.arrayOf(
-    PropTypes.number.isRequired,
-  ).isRequired,
+  usersDataByPage: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  paginationArray: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   currentPage: PropTypes.number.isRequired,
   sortedByName: PropTypes.string,
   sortedByDirection: PropTypes.string,
-  getSortedUsersData: PropTypes.arrayOf(
-    PropTypes.object.isRequired,
-  ).isRequired,
+  getSortedUsersData: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   setCurrentPage: PropTypes.func.isRequired,
   setSortedByName: PropTypes.func.isRequired,
   setSortedByDirection: PropTypes.func.isRequired,

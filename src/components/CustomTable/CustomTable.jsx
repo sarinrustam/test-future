@@ -57,13 +57,9 @@ class CustomTable extends React.PureComponent {
 };
 
 CustomTable.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.object.isRequired,
-  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   setActiveItem: PropTypes.func.isRequired,
-  headers: PropTypes.arrayOf(
-    PropTypes.string.isRequired,
-  ).isRequired,
+  headers: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   sortedByName: PropTypes.string,
   sortedByDirection: PropTypes.string,
   tableHeaderClick: PropTypes.func.isRequired,

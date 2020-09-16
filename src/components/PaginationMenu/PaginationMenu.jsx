@@ -49,9 +49,7 @@ const PaginationMenu = (props) => {
 };
 
 PaginationMenu.propTypes = {
-  paginations: PropTypes.arrayOf(
-    PropTypes.number.isRequired,
-  ).isRequired,
+  paginations: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   setCurrentPage: PropTypes.func.isRequired,
   currentPage: PropTypes.number.isRequired,
 };
