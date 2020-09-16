@@ -6,9 +6,11 @@
 
 ## Полное описание задания - (https://github.com/fugr-ru/frontend-javascript-test)
 
-# Опубликованная версия
-
-**Ссылка на опубликованную версию** - 
+###Дополнительная информация:
+1. Для UI использовал - [Reactstrap](https://reactstrap.github.io/)
+2. Для работы с формой - [Formik](https://formik.org/)
+3. Для запросов к серверу - [Axios](https://github.com/axios/axios)
+4. Для работы со стором - [Redux](https://react-redux.js.org/)
 
 # Как запустить локально
 
