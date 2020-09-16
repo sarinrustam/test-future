@@ -37,7 +37,7 @@ class CustomTable extends React.PureComponent {
         <tbody>
           {data.map((item) => (
             <tr
-              key={item.id}
+              key={item.id + item.email}
               onClick={() => {
                 setActiveItem(item);
               }}

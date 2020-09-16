@@ -8,6 +8,7 @@ const initialState = {
   currentPage: 1,
   sortedByName: null,
   sortedByDirection: null,
+  findPhrase: '',
 };
 
 const ActionType = {
@@ -18,6 +19,7 @@ const ActionType = {
   SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
   SET_SORTED_BY_NAME: 'SET_SORTED_BY_NAME',
   SET_SORTED_BY_DIRECTION: 'SET_SORTED_BY_DIRECTION',
+  SET_FIND_PHRASE: 'SET_FIND_PHRASE',
 };
 
 const ActionCreator = {
@@ -60,6 +62,12 @@ const ActionCreator = {
   setSortedByDirection: (payload) => {
     return {
       type: ActionType.SET_SORTED_BY_DIRECTION,
+      payload,
+    };
+  },
+  setFindPhrase: (payload) => {
+    return {
+      type: ActionType.SET_FIND_PHRASE,
       payload,
     };
   },
@@ -119,6 +127,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortedByDirection: action.payload,
+      };
+    case ActionType.SET_FIND_PHRASE:
+      return {
+        ...state,
+        findPhrase: action.payload,
       }
     default:
       return state;

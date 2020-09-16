@@ -17,6 +17,7 @@ import {
   getSortedByName,
   getSortedByDirection,
   getSortedUsersData,
+  getFilteredUsersData,
 } from '../../reducer/users/selectors';
 import WelcomeScreen from '../WelcomeScreen/WelcomeScreen.jsx';
 import { ActionCreator } from '../../reducer/users/users';
@@ -34,6 +35,7 @@ class Main extends React.PureComponent {
     this.handleActiveItem = this.handleActiveItem.bind(this);
     this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
     this.handleTableHeaderClick = this.handleTableHeaderClick.bind(this);
+    this.handleSetFindPhrase = this.handleSetFindPhrase.bind(this);
   }
 
   handleCloseModal() {
@@ -74,6 +76,10 @@ class Main extends React.PureComponent {
       this.props.setSortedByDirection(SortDirections.UP);
     }
     this.props.setSortedByName(header);
+  }
+
+  handleSetFindPhrase(phrase) {
+    this.props.setFindPhrase(phrase);
   }
 
   renderDetailsBlock() {
@@ -132,7 +138,9 @@ class Main extends React.PureComponent {
           <UserForm/>
         </ModalBody>
       </Modal>
-      <FilterSearch/>
+      <FilterSearch
+        changeFilter={this.handleSetFindPhrase}
+      />
       {this.renderCustomTable()}
       {this.renderPagination()}
       {this.renderDetailsBlock()}
@@ -162,6 +170,7 @@ const mapStateToProps = (state) => {
     sortedByName,
     sortedByDirection,
     getSortedUsersData,
+    filteredData,
   };
 };
 
@@ -169,6 +178,7 @@ const mapDispatchToProps = {
   setCurrentPage: ActionCreator.setCurrentPage,
   setSortedByName: ActionCreator.setSortedByName,
   setSortedByDirection: ActionCreator.setSortedByDirection,
+  setFindPhrase: ActionCreator.setFindPhrase,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

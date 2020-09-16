@@ -30,8 +30,32 @@ export const getSortedByDirection = (state) => {
   return state[NameSpace.USERS].sortedByDirection;
 };
 
-export const getSortedUsersData = createSelector(
+export const getFindPhrase = (state) => {
+  return state[NameSpace.USERS].findPhrase;
+};
+
+export const getFilteredUsersData = createSelector(
   getUsersData,
+  getFindPhrase,
+  (resultOne, resultTwo) => {
+    if (!resultTwo) {
+      return resultOne;
+    }
+
+    return resultOne.filter((item) => {
+      for (let key in item) {
+        if (item[key].toString().includes(resultTwo)) {
+          return true;
+        }
+      }
+
+      return false;
+    });
+  }
+);
+
+export const getSortedUsersData = createSelector(
+  getFilteredUsersData,
   getSortedByName,
   getSortedByDirection,
   (resultOne, resultTwo, resultThree) => {
