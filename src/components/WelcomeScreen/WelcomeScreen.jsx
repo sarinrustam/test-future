@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Jumbotron, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { ActionCreator, Operation as UsersOperation } from '../../reducer/users/users';
@@ -20,6 +21,7 @@ const WelcomeScreen = (props) => {
       <h2>Выберите какой обьем данных отобразить в таблице: </h2>
       <hr/>
       <Button
+        style={{marginRight: "10px"}}
         onClick={handleClickSmallData}
         outline
         color='secondary'
@@ -35,6 +37,11 @@ const WelcomeScreen = (props) => {
       </Button>
     </Jumbotron>
   );
+};
+
+WelcomeScreen.propTypes = {
+  setUsersDataCount: PropTypes.func.isRequired,
+  loadUsersData: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {

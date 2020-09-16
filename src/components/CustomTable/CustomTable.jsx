@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'reactstrap';
+import PropTypes from 'prop-types';
 import { SortDirections } from '../../utils/utils';
 
 class CustomTable extends React.PureComponent {
@@ -53,6 +54,24 @@ class CustomTable extends React.PureComponent {
       </Table >
     );
   }
+};
+
+CustomTable.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
+  ).isRequired,
+  setActiveItem: PropTypes.func.isRequired,
+  headers: PropTypes.arrayOf(
+    PropTypes.string.isRequired,
+  ).isRequired,
+  sortedByName: PropTypes.string,
+  sortedByDirection: PropTypes.string,
+  tableHeaderClick: PropTypes.func.isRequired,
+};
+
+CustomTable.defaultProps = {
+  sortedByName: null,
+  sortedByDirection: null,
 };
 
 export default CustomTable;

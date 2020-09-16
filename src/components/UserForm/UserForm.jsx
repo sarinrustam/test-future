@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Form, Row, Col, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
@@ -132,6 +133,11 @@ class UserForm extends React.PureComponent {
     );
   }
 }
+
+UserForm.propTypes = {
+  addNewData: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = {
   addNewData: ActionCreator.addNewData,

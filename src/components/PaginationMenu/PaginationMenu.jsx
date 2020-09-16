@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 const PaginationMenu = (props) => {
@@ -45,6 +46,14 @@ const PaginationMenu = (props) => {
       </PaginationItem>
     </Pagination>
   );
+};
+
+PaginationMenu.propTypes = {
+  paginations: PropTypes.arrayOf(
+    PropTypes.number.isRequired,
+  ).isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
 };
 
 export default PaginationMenu;

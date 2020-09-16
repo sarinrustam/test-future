@@ -6,6 +6,7 @@ import DescriptionArea from '../DescriptionArea/DescriptionArea.jsx';
 import FilterSearch from '../FilterSearch/FilterSearch.jsx';
 import PaginationMenu from '../PaginationMenu/PaginationMenu.jsx';
 import UserForm from '../UserForm/UserForm.jsx';
+import PropTypes from 'prop-types';
 import { MAX_USERS_ITEMS, SortDirections, tableHeaders } from '../../utils/utils';
 import {
   getUsersDataLoading,
@@ -154,6 +155,34 @@ class Main extends React.PureComponent {
       </>
     );
   }
+}
+
+Main.propTypes = {
+  userDataLoading: PropTypes.bool.isRequired,
+  userDataError: PropTypes.bool.isRequired,
+  usersDataCount: PropTypes.number,
+  usersDataByPage: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
+  ).isRequired,
+  paginationArray: PropTypes.arrayOf(
+    PropTypes.number.isRequired,
+  ).isRequired,
+  currentPage: PropTypes.number.isRequired,
+  sortedByName: PropTypes.string,
+  sortedByDirection: PropTypes.string,
+  getSortedUsersData: PropTypes.arrayOf(
+    PropTypes.object.isRequired,
+  ).isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  setSortedByName: PropTypes.func.isRequired,
+  setSortedByDirection: PropTypes.func.isRequired,
+  setFindPhrase: PropTypes.func.isRequired,
+};
+
+Main.defaultProps = {
+  usersDataCount: PropTypes.null,
+  sortedByName: PropTypes.null,
+  sortedByDirection: PropTypes.null,
 }
 
 const mapStateToProps = (state) => {

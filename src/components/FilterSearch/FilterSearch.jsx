@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, CardBody, Card, Input, Label, FormGroup, Row } from 'reactstrap';
 
 class FilterSearch extends React.PureComponent {
@@ -50,6 +51,10 @@ class FilterSearch extends React.PureComponent {
       </div>
     );
   }
+};
+
+FilterSearch.propTypes = {
+  changeFilter: PropTypes.func.isRequired,
 };
 
 export default FilterSearch;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Row, Col, CardTitle, CardText, FormGroup, Label, Input } from 'reactstrap';
 
 const DescriptionArea = (props) => {
@@ -25,6 +26,20 @@ const DescriptionArea = (props) => {
     </Row>
     </>
   )
+};
+
+DescriptionArea.propTypes = {
+  userData: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    address: PropTypes.shape({
+      streetAddress: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      state: PropTypes.string.isRequired,
+      zip: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default DescriptionArea;
