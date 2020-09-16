@@ -22,6 +22,31 @@ export const getCurrentPage = (state) => {
   return state[NameSpace.USERS].currentPage;
 };
 
+export const getSortedByName = (state) => {
+  return state[NameSpace.USERS].sortedByName;
+};
+
+export const getSortedByDirection = (state) => {
+  return state[NameSpace.USERS].sortedByDirection;
+};
+
+export const getSortedUsersData = createSelector(
+  getUsersData,
+  getSortedByName,
+  getSortedByDirection,
+  (resultOne, resultTwo, resultThree) => {
+    return resultOne.slice().sort((a, b) => {
+      if (resultThree === 'up') {
+        return a[resultTwo] > b[resultTwo] ? 1 : -1;
+      }
+      if (resultThree === 'down') {
+        return b[resultTwo] > a[resultTwo] ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+);
+
 export const getPaginations = createSelector(
   getUsersData,
   (resultOne) => {

@@ -6,6 +6,8 @@ const initialState = {
   isUsersDataError: false,
   usersDataCount: null,
   currentPage: 1,
+  sortedByName: null,
+  sortedByDirection: null,
 };
 
 const ActionType = {
@@ -14,6 +16,8 @@ const ActionType = {
   SET_USERS_DATA_ERROR: 'SET_USERS_DATA_ERROR',
   SET_USERS_DATA_COUNT: 'SET_USERS_DATA_COUNT',
   SET_CURRENT_PAGE: 'SET_CURRENT_PAGE',
+  SET_SORTED_BY_NAME: 'SET_SORTED_BY_NAME',
+  SET_SORTED_BY_DIRECTION: 'SET_SORTED_BY_DIRECTION',
 };
 
 const ActionCreator = {
@@ -44,6 +48,18 @@ const ActionCreator = {
   setCurrentPage: (payload) => {
     return {
       type: ActionType.SET_CURRENT_PAGE,
+      payload,
+    };
+  },
+  setSortedByName: (payload) => {
+    return {
+      type: ActionType.SET_SORTED_BY_NAME,
+      payload,
+    };
+  },
+  setSortedByDirection: (payload) => {
+    return {
+      type: ActionType.SET_SORTED_BY_DIRECTION,
       payload,
     };
   },
@@ -93,6 +109,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      };
+    case ActionType.SET_SORTED_BY_NAME:
+      return {
+        ...state,
+        sortedByName: action.payload,
+      };
+    case ActionType.SET_SORTED_BY_DIRECTION:
+      return {
+        ...state,
+        sortedByDirection: action.payload,
       }
     default:
       return state;

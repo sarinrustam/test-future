@@ -7,14 +7,16 @@ import DescriptionArea from '../DescriptionArea/DescriptionArea.jsx';
 import FilterSearch from '../FilterSearch/FilterSearch.jsx';
 import PaginationMenu from '../PaginationMenu/PaginationMenu.jsx';
 import UserForm from '../UserForm/UserForm.jsx';
-import { MAX_USERS_ITEMS } from '../../utils/utils';
+import { MAX_USERS_ITEMS, SortDirections, tableHeaders } from '../../utils/utils';
 import {
   getUsersDataLoading,
   getUsersDataError,
-  getUsersData,
   getUsersDataCount,
   getPaginations,
   getCurrentPage,
+  getSortedByName,
+  getSortedByDirection,
+  getSortedUsersData,
 } from '../../reducer/users/selectors';
 import WelcomeScreen from '../WelcomeScreen/WelcomeScreen.jsx';
 import { ActionCreator } from '../../reducer/users/users';
@@ -31,6 +33,7 @@ class Main extends React.PureComponent {
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleActiveItem = this.handleActiveItem.bind(this);
     this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
+    this.handleTableHeaderClick = this.handleTableHeaderClick.bind(this);
   }
 
   handleCloseModal() {
@@ -53,6 +56,26 @@ class Main extends React.PureComponent {
     });
   }
 
+  handleTableHeaderClick(header) {
+    if (header === this.props.sortedByName) {
+      console.log(this.props.sortedByDirection, 'sss')
+      if (this.props.sortedByDirection === SortDirections.UP) {
+        this.props.setSortedByDirection(SortDirections.DOWN);
+      }
+
+      if (this.props.sortedByDirection === SortDirections.DOWN) {
+        this.props.setSortedByDirection(null);
+      }
+
+      if (!this.props.sortedByDirection) {
+        this.props.setSortedByDirection(SortDirections.UP);
+      }
+    } else {
+      this.props.setSortedByDirection(SortDirections.UP);
+    }
+    this.props.setSortedByName(header);
+  }
+
   renderDetailsBlock() {
     if (this.state.activeItem) {
       return (
@@ -64,7 +87,7 @@ class Main extends React.PureComponent {
   }
 
   renderCustomTable() {
-    const { userDataLoading, userDataError, usersDataByPage } = this.props;
+    const { userDataLoading, userDataError, usersDataByPage, sortedByName, sortedByDirection } = this.props;
 
     if (userDataLoading) {
       return <Spinner color='secondary'/>
@@ -74,7 +97,16 @@ class Main extends React.PureComponent {
       return <p style={{color: 'red'}}>При загрузке данных произошла ошибка</p>
     }
 
-    return <CustomTable setActiveItem={this.handleActiveItem} data={usersDataByPage} />
+    return (
+      <CustomTable
+        tableHeaderClick={this.handleTableHeaderClick}
+        sortedByName={sortedByName}
+        sortedByDirection={sortedByDirection}
+        headers={tableHeaders}
+        setActiveItem={this.handleActiveItem}
+        data={usersDataByPage}
+      />
+    )
   }
 
   renderPagination() {
@@ -112,11 +144,13 @@ class Main extends React.PureComponent {
 const mapStateToProps = (state) => {
   const userDataLoading = getUsersDataLoading(state);
   const userDataError = getUsersDataError(state);
-  const usersData = getUsersData(state);
   const usersDataCount = getUsersDataCount(state);
   const paginationArray = getPaginations(state);
   const currentPage = getCurrentPage(state);
-  const usersDataByPage = usersData.slice(MAX_USERS_ITEMS * (currentPage - 1), MAX_USERS_ITEMS * currentPage);
+  const sortedByName = getSortedByName(state);
+  const sortedByDirection = getSortedByDirection(state);
+  const sortedUsersData = getSortedUsersData(state);
+  const usersDataByPage = sortedUsersData.slice(MAX_USERS_ITEMS * (currentPage - 1), MAX_USERS_ITEMS * currentPage);
 
   return {
     userDataLoading,
@@ -125,11 +159,16 @@ const mapStateToProps = (state) => {
     usersDataCount,
     paginationArray,
     currentPage,
+    sortedByName,
+    sortedByDirection,
+    getSortedUsersData,
   };
 };
 
 const mapDispatchToProps = {
   setCurrentPage: ActionCreator.setCurrentPage,
+  setSortedByName: ActionCreator.setSortedByName,
+  setSortedByDirection: ActionCreator.setSortedByDirection,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
