@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, CardBody, Card, Input, Label, FormGroup } from 'reactstrap';
+import { Button, CardBody, Card, Input, Label, FormGroup, Row } from 'reactstrap';
 
 class FilterSearch extends React.PureComponent {
   constructor(props) {
@@ -25,7 +25,7 @@ class FilterSearch extends React.PureComponent {
 
   render() {
     return (
-      <div>
+      <div style={{marginBottom: "20px"}}>
         <Card>
           <CardBody>
             <FormGroup>

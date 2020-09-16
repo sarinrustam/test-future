@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal, ModalHeader, ModalBody, Spinner } from 'reactstrap';
-import AddRowButton from '../AddRowButton/AddRowButton.jsx';
+import { Modal, ModalHeader, ModalBody, Spinner, Button } from 'reactstrap';
 import CustomTable from '../CustomTable/CustomTable.jsx';
 import DescriptionArea from '../DescriptionArea/DescriptionArea.jsx';
 import FilterSearch from '../FilterSearch/FilterSearch.jsx';
@@ -17,7 +16,6 @@ import {
   getSortedByName,
   getSortedByDirection,
   getSortedUsersData,
-  getFilteredUsersData,
 } from '../../reducer/users/selectors';
 import WelcomeScreen from '../WelcomeScreen/WelcomeScreen.jsx';
 import { ActionCreator } from '../../reducer/users/users';
@@ -31,16 +29,16 @@ class Main extends React.PureComponent {
       activeItem: null,
     };
 
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleToggleModal = this.handleToggleModal.bind(this);
     this.handleActiveItem = this.handleActiveItem.bind(this);
     this.handleSetCurrentPage = this.handleSetCurrentPage.bind(this);
     this.handleTableHeaderClick = this.handleTableHeaderClick.bind(this);
     this.handleSetFindPhrase = this.handleSetFindPhrase.bind(this);
   }
 
-  handleCloseModal() {
+  handleToggleModal() {
     this.setState({
-      isModalOpen: true,
+      isModalOpen: !this.state.isModalOpen,
     })
   }
 
@@ -128,14 +126,23 @@ class Main extends React.PureComponent {
     }
     return (
       <>
-      <AddRowButton/>
+      <Button 
+        style={{marginBottom: "20px"}}
+        outline 
+        color='secondary'
+        onClick={this.handleToggleModal}
+      >
+        Добавить поле
+      </Button>
       <Modal 
-        isOpen={this.state.isModalOpen}
-        toggle={this.handleCloseModal}
+       isOpen={this.state.isModalOpen}
+       toggle={this.handleToggleModal}
       >
         <ModalHeader>Добавить пользователя</ModalHeader>
         <ModalBody>
-          <UserForm/>
+          <UserForm 
+            onClose={this.handleToggleModal}
+          />
         </ModalBody>
       </Modal>
       <FilterSearch
@@ -169,8 +176,7 @@ const mapStateToProps = (state) => {
     currentPage,
     sortedByName,
     sortedByDirection,
-    getSortedUsersData,
-    filteredData,
+    getSortedUsersData
   };
 };
 

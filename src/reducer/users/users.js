@@ -20,6 +20,7 @@ const ActionType = {
   SET_SORTED_BY_NAME: 'SET_SORTED_BY_NAME',
   SET_SORTED_BY_DIRECTION: 'SET_SORTED_BY_DIRECTION',
   SET_FIND_PHRASE: 'SET_FIND_PHRASE',
+  ADD_NEW_DATA: 'ADD_NEW_DATA',
 };
 
 const ActionCreator = {
@@ -68,6 +69,12 @@ const ActionCreator = {
   setFindPhrase: (payload) => {
     return {
       type: ActionType.SET_FIND_PHRASE,
+      payload,
+    };
+  },
+  addNewData: (payload) => {
+    return {
+      type: ActionType.ADD_NEW_DATA,
       payload,
     };
   },
@@ -132,6 +139,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         findPhrase: action.payload,
+      };
+    case ActionType.ADD_NEW_DATA:
+      return {
+        ...state,
+        usersData: [
+          action.payload,
+          ...state.usersData
+        ],
       }
     default:
       return state;
